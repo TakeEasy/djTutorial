@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>lunbo</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style-type: none;
+        }
+        .outer{
+            margin: 50px auto;
+            height: 470px;
+            width: 590px;
+            position: relative;
+        }
+        .img li{
+            position: absolute;
+            top:0;
+            left:0;
+        }
+        .num{
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+
+        }
+        .num li{
+            display: inline-block;
+            height:20px;
+            width:20px;
+            background-color: darkgray;
+            color: #ffffff;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 20%;
+            margin: 0 10px;
+        }
+        .btn{
+            position: absolute;
+            height: 60px;
+            width: 30px;
+            background-color: darkgray;
+            color: #ffffff;
+            line-height: 60px;
+            text-align: center;
+            top:50%;
+            margin-top: -30px;
+            display: none;
+        }
+        .left_btn{
+            left: 0;
+        }
+        .right_btn{
+            right:0;
+        }
+        .outer:hover .btn{
+            display: block;
+        }
+
+        .outer .num .current{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <ul class=img>
+            <li><a href="#"><img src="{% static 'polls/img/1.jpg' %}"></a></li>
+            <li><a href="#"><img src="{% static 'polls/img/2.jpg' %}"></a></li>
+            <li><a href="#"><img src="{% static 'polls/img/3.jpg' %}"></a></li>
+            <li><a href="#"><img src="{% static 'polls/img/4.jpg' %}"></a></li>
+        </ul>
+        <ul class="num">
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+
+        <div class="left_btn btn"> < </div>
+        <div class="right_btn btn"> > </div>
+    </div>
+    <script src="{% static 'polls/js/jquery-3.2.0.min.js' %}"></script>
+    <script>
+        var i=-1;
+        $(".num li").mouseover(function () {
+            $(this).addClass('current').siblings().removeClass('current');
+            var index = $(this).index();
+            $(".img li").eq(index).stop().fadeIn(1000).siblings().stop().fadeOut(1000);
+            i = index;
+        });
+
+        var time = setInterval(move,1500);
+        function move() {
+            i++;
+            if (i>=4){
+                i=0;
+            }
+            $(".num li").eq(i).addClass('current').siblings().removeClass('current');
+            $(".img li").eq(i).stop().fadeIn(1000).siblings().stop().fadeOut(1000);
+        }
+
+        function moveL() {
+            i--;
+            if (i<=-1){
+                i=4
+            }
+            $(".num li").eq(i).addClass('current').siblings().removeClass('current');
+            $(".img li").eq(i).stop().fadeIn(1000).siblings().stop().fadeOut(1000);
+
+        }
+
+
+        $(".outer").hover(function () {
+            clearInterval(time);
+        },function () {
+            time = setInterval(move,1500);
+        });
+
+        $(".left_btn").click(function () {
+            moveL();
+        });
+
+        $('.right_btn').click(function () {
+            move();
+        })
+    </script>
+</body>
+</html>

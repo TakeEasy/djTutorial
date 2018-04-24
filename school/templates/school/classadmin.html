@@ -1,0 +1,159 @@
+{% extends 'school/layout.html' %}
+{% block css %}
+    <style>
+        .model{
+            position:fixed;
+            top:50%;
+            left:50%;
+            height: 400px;
+            width:500px;
+            margin-top: -200px;
+            margin-left: -250px;
+            background-color: white;
+            z-index:100;
+
+        }
+        .delete{
+            position:fixed;
+            top:50%;
+            left:50%;
+            height: 100px;
+            width:200px;
+            margin-top: -50px;
+            margin-left: -100px;
+            background-color: red;
+            z-index:100;
+
+        }
+        .shade{
+            position: fixed;
+            top:0;
+            right:0;
+            left:0;
+            bottom:0;
+            background-color: black;
+            opacity: 0.5;
+            z-index: 99;
+        }
+        .hide{
+            display:none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>班级管理</h1>
+    <input id="add_button" type="button" value="添加" />
+    <table border="1px">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>班级名称</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+            {% for item in cls_list %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.caption }}</td>
+                    <td><a>编辑</a> | <a class="td_delete">删除</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagenation">
+        {{ page_html|safe }}
+    </div>
+    <div class="model hide">
+        <form action="{% url 'school:classadmin' %}" method="post">
+            {% csrf_token %}
+            <input id="caption" type="text" name="caption" placeholder="标题"/>
+            <input id="addsure_btn"  type="submit" value="确定" />
+            <input type="button" id="addajaxsure_btn" value="ajax确定" />
+            <input id="addcancel_btn" type="button" value="取消" />
+        </form>
+    </div>
+    <div class="delete hide">
+        <input id="deletesure_btn"  type="button" value="确定" />
+        <input id="deletecancel_btn" type="button" value="取消" />
+    </div>
+    <div class="shade hide"></div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(function () {
+            $('#menu_class').addClass('active');
+
+            bindAddClick();
+            bindAddcancelClick();
+            bindDeleteClick();
+            bindDeletecancelClick();
+            bindAddSubmitClick();
+        });
+
+        function bindAddClick() {
+            $('#add_button').click(function () {
+                $('.model,.shade').removeClass('hide');
+            });
+        }
+        function bindAddcancelClick() {
+            $('#addcancel_btn').click(function () {
+                $('.model,.shade').addClass('hide');
+            });
+        }
+        function bindDeleteClick() {
+            $('tbody').on('click','.td_delete',function () {
+                var parent = $(this).parent();
+                console.log(parent);
+                console.log($(parent).prevAll().eq(0));
+                console.log($(parent).prevAll().eq(1));
+                var id = $(parent).prevAll('td').eq(1).text();
+                var caption = $(parent).prevAll('td').eq(0).text();
+                console.log(id);
+                console.log(caption);
+                $('.delete,.shade').removeClass('hide');
+
+            })
+        }
+        function bindDeletecancelClick() {
+            $('#deletecancel_btn').click(function () {
+                $('.delete,.shade').addClass('hide');
+            });
+        }
+        function bindAddSubmitClick() {
+            $('#addajaxsure_btn').click(function () {
+                var value = $('.model input[name="'+'caption'+'"]').val()
+                $.ajax({
+                    url:'{% url 'school:classadmin' %}',
+                    type:'POST',
+                    data:{caption:value},
+                    dataType:'JSON',
+                    success:function (arg) {
+                        console.log(arg);
+                        if(!arg.status){
+                            alert(arg.error);
+                        }
+                        else {
+                            //location.reload();
+                            var tr = document.createElement('tr');
+                            var td1 = document.createElement('td');
+                            var td2 = document.createElement('td');
+                            var td3 = document.createElement('td');
+                            td3.innerHTML = '<a>编辑</a> | <a class="td_delete">删除</a>';
+                            td1.innerHTML = arg.data.id;
+                            td2.innerHTML = arg.data.caption;
+                            $(tr).append(td1);
+                            $(tr).append(td2);
+                            $(tr).append(td3);
+                            $('table tbody').append(tr);
+                            $('.model,.shade').addClass('hide');
+
+                        }
+                    }
+                })
+
+            });
+
+        }
+    </script>
+{% endblock %}

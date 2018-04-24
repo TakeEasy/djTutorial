@@ -1,0 +1,5 @@
+[127.0.0.1:3306]
+database=djtutorial
+user=root
+password=year93926
+default-character-set=utf8

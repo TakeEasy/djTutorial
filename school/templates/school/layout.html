@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>SCHOOL ADMIN</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .menu .item{
+            display: block;
+            padding: 5px 10px;
+            border-bottom: 1px solid #dddddd;
+        }
+        .menu .item:hover{
+            background-color: black;
+            color: white;
+        }
+        .menu .item.active{
+            background-color: black;
+            color: white;
+        }
+    </style>
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+    <div style="height: 48px;background-color: black;color: white;">
+        <div style="float:right">用户名:{{ username }}|<a href="{% url 'school:logout' %}">注销</a></div>
+    </div>
+    <div>
+        <div class="menu" style="position: absolute;top:48px;left: 0;bottom:0;width:200px;background-color: #eeeeee;">
+            <a id="menu_class" class="item" href="{% url 'school:classadmin' %}">班级管理</a>
+            <a id="menu_teacher" class="item" href="{% url 'school:teacheradmin' %}">老师管理</a>
+            <a id="menu_student" class="item" href="{% url 'school:studentadmin' %}">学生管理</a>
+        </div>
+        <div style="position: absolute;top:48px;left:200px;bottom:0;right: 0;overflow: auto">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+    <script src="{% static 'school/js/jquery-3.2.0.min.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

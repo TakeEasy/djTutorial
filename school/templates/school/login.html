@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SCHOOL LOGIN</title>
+</head>
+<body>
+<form action="{% url 'school:login' %}" method="post" >
+    {% csrf_token %}
+    <label for="txtName">username:</label>
+    <input type="text" name="username" id="txtName"/><br/>
+    <label for="txtPwd">password:</label>
+    <input type="password" name="password" id="txtPwd"/><br/>
+    <input type="submit" value="SUBMIT">
+    <span style="color: red">{{ msg }}</span>
+</form>
+</body>
+</html>

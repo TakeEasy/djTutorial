@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>muban</title>
+    <style>
+        .page-header{
+            height:50px;
+            background-color: rebeccapurple;
+        }
+        .page-body .menu{
+            height:400px;
+            background-color: antiquewhite;
+            float:left;
+            width:20%;
+            
+        }
+        .page-body .content{
+            height:400px;
+            background-color: cornflowerblue;
+            float: left;
+            width:80%;
+        }
+        .page-footer{
+            height: 50px;
+            background-color: darkcyan;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="page-header"></div>
+    <div class="page-body">
+        <div class="menu">
+            <a href="{% url 'polls:muban' %}">订单</a>
+            <a href="{% url 'polls:muban' %}">购物车</a>
+        </div>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="page-footer"></div>
+</div>
+</body>
+</html>
