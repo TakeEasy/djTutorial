@@ -1,0 +1,573 @@
+{% extends 'chouti/layout.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+    <div class="head-band">
+        <div class="head-content">
+            <a href="/" class="digg-logo"></a>
+
+            <!-- 导航 -->
+            <div class="action-menu">
+
+                <a href="#" class="tb active">全部</a>
+
+
+                <a href="#" class="tb">待定</a>
+
+
+                <a href="#" class="tb">待定</a>
+
+
+                <a href="#" class="tb">待定</a>
+
+
+                <a href="#" class="tb">待定</a>
+
+
+                <a href="#" class="tb">待定</a>
+
+
+            </div>
+
+            <div class="key-sera">
+                <form action="#" method="post" name="searchFrm2" id="searchFrm2">
+                    <input type="text" class="search-txt-s" name="words" id="txtSearch2" autocomplete="off">
+
+                    <a href="javascript:;" class="i" name="searchBtn_2" id="searchBtn_3"><span class="ico"></span></a>
+                    <input type="hidden" value="1" id="page" name="page">
+                </form>
+            </div>
+
+
+
+            {% if isLogin != True %}
+                <div class="action-nav">
+                    <a href="javascript:;" class="login-btn-a" id="reg-link-a">注册</a>
+                    <a href="javascript:;" class="login-btn-a" id="login-link-a">登录</a>
+                </div>
+            {% else %}
+                <div class="action-nav">
+                    <!--  <a href="/">首页</a><span>|</span><a href="http://www.chouti.com/cdu_50822995421" target="_blank">我的收藏</a><span>|</span>   <a href="/profile">设置</a>-->
+                    <a href="#" style="float:left;position:relative;" id="btnDtaiShw">
+                        <div class="ico-dynamic" title="动态"></div>
+                        <span>动态</span>
+                        <div class="notice-num-title" id="Dtai-num-title" style="display:none;">
+                            <div id="Dtai-em" class="dynamic-no"></div>
+                        </div>
+                    </a>
+                    <a href="#" id="btnNotShw" class="notice-box">
+                        <div class="ico-notice" title="消息"></div>
+                        <span id="ico_notice_span">通知</span>
+                        <div class="notice-num-title" id="notice-num-title" style="display:none;">
+                            <div id="notice-em" class="notice-no"></div>
+                        </div>
+                    </a>
+                    <a href="#" id="loginUserNc" class="userPro-Box" style="margin-left:15px;">
+                        <img src="{% static 'chouti/img/image30.png' %}" id="userProImg">
+                        <span class="u-nick" id="userProNick">{{ userName }}</span>
+                        <em id="userProArr"></em>
+                    </a>
+                </div>
+            {% endif %}
+
+            <div class="user-opr-box" id="userOprBox" style="left: 1202.5px; display: none;">
+                <a href="#" style="border-top:0;">我的新热榜</a>
+                <a href="#" target="_blank" class="ie6-a">我的收藏</a>
+                <a href="#" class="ie6-a">我的钱包</a>
+                <a href="#">设置</a>
+                <a class="logout" href="#">退出</a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="main-content-band">
+        <div class="main-content">
+            <div class="content-L">
+                <!--发布区域-->
+                <div class="nav-top-area" style="margin-bottom: 0px;">
+                    <div class="child-nav">
+                        <a href="#" hidefocus="false" class="hotbtn active icons" id="hotts-nav-btn">最热</a>
+                        <a href="#" hidefocus="false" class="newbtn" id="newest-nav-btn">发现</a>
+                        <a href="#" hidefocus="false" class="personbtn" id="person-nav-btn">人类发布</a>
+
+                    </div>
+
+                    <div class="sort-nav">
+                        <a href="#" hidefocus="false" class="active hotbtn" id="sort-nav-btn">即时排序</a>
+                        <a href="#" hidefocus="false" class="newbtn" id="sort24-nav-btn">24小时</a>
+                        <a href="#" hidefocus="false" class="newbtn" id="sort3-nav-btn">3天</a>
+                    </div>
+
+                    <a href="#" class="publish-btn" id="btnPublish" lang="all">
+                        <span class="ico n1"></span><span class="n2">发布</span>
+                    </a>
+			    </div>
+
+                <!-- 内容区域 -->
+                <div class="yellow-comment-msg-box" id="yellow-msg-box-intohot"><em></em><span>条入热榜，点击查看</span></div>
+                <div class="loading-ico" style="margin-left:250px;" id="load_hotitems">加载中，请稍候...</div>
+
+                <div class="content-list" id="content-list">
+                    <div class="item">
+                        <!--不知道有什么用-->
+                        <div class="timeIntoPool"></div>
+                        <!--图片-->
+                        <div class="news-pic"><img lang="14179641"
+                                               original=""
+                                               src="{% static 'chouti/img/bai.png' %}" alt="抽屉新热榜"/></div>
+                        <!--不知道有什么用-->
+                        <div class="null-item"></div>
+                        <!--内容-->
+                        <div class="news-content" id="newsContent14179641">
+                            <div class="part1">
+                                <a href="http://dig.chouti.com/pic/show?nid=4150868239116079&lid=14179641"
+                                    class="show-content color-chag" target="_blank" onMouseDown="linksClickStat(14179641);">
+                                    哈哈哈哈哈哈哈哈哈
+                                </a>
+                                <a href="/r/news/hot/1" class="n2"><span class="content-kind">42区</span></a>
+                            </div>
+                            <!--摘要区域-->
+                            <div class="area-summary">
+                                <span class="summary">
+                                    哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈
+                                </span>
+                            </div>
+                            <div class="part2"
+                                share-pic="http://img3.chouti.com/CHOUTI_5252B081D77E424DA7223494CAA00BD5_W434H434.jpg"
+                                share-title='疑似因挑战青年精神领袖长鱼侯，有一千六百多万粉丝的微博巨V袁某飞被销号，粉飞丝断。 ​(@铜梁厨子)' share-summary=''
+                                share-linkid="14179641" share-subject="42区">
+
+                                <!--点赞-->
+                                <a href="javascript:;" class="digg-a" title="推荐"><span
+                                    class="hand-icon icon-digg"></span><b>2</b><i style="display:none">14179641</i></a>
+
+                                <!--评论-->
+                                <a href="javascript:;" class="discus-a" id="discus-a-14179641" lang="14179641"
+                                    onmousedown="linksClickStat(14179641);"><span
+                                    class="hand-icon icon-discus"></span><b>11</b></a>
+
+                                <!--收藏-->
+                                <a href="javascript:;" class="collect-a" id="collect-a-14179641" lang="14179641"
+                                    title="加入私藏" destjid="" jid="wb_5945522936"><span
+                                    class="hand-icon icon-collect"></span><b>私藏</b></a>
+
+                                <!--发布人-->
+                                <a href="/user/wb_5945522936/submitted/1" class="user-a"><span><img
+                                    src="{% static 'chouti/img/bai.png' %}"/></span><b>铜梁厨子</b></a>
+
+                                <!--发布时间-->
+                                <span class="left time-into"><a class="time-a" href="/link/14179641" target="_blank"><b>3分钟前</b></a><i>入热榜</i></span>
+                            </div>
+                            <!--评论区域-->
+                            <div></div>
+                        </div>
+                    </div>
+
+
+                    <!--循环显示所有news-->
+                    {% for new in allNews %}
+
+                    <div class="item">
+                        <!--不知道有什么用-->
+                        <div class="timeIntoPool"></div>
+                        <!--图片-->
+                        <div class="news-pic"><img lang="{{ new.id }}"
+                                               original=""
+                                               src="{% static 'chouti/img/bai.png' %}" alt="抽屉新热榜"/></div>
+                        <!--不知道有什么用-->
+                        <div class="null-item"></div>
+                        <!--内容-->
+                        <div class="news-content" id="newsContent{{ new.id }}">
+                            <div class="part1">
+                                <a href="{{ new.url }}"
+                                    class="show-content color-chag" target="_blank" onMouseDown="linksClickStat( '{{new.id}}' );">
+                                    {{ new.title }}
+                                </a>
+                                <a href="/r/news/hot/1" class="n2"><span class="content-kind">13区</span></a>
+                            </div>
+                            <!--摘要区域-->
+                            <div class="area-summary">
+                                <span class="summary">
+                                    {{ new.Content }}
+                                </span>
+                            </div>
+                            <div class="part2"
+                                share-pic="{% static 'chouti/img/bai.png' %}"
+                                share-title='{{ new.title }}' share-summary='{{ new.Content }}'
+                                share-linkid="{{ new.id }}" share-subject="42区">
+
+                                <!--点赞-->
+                                <a href="javascript:;" class="{{ new.cssclass1 }}" title="推荐"><span
+                                    class="hand-icon icon-digg {{ new.cssclass2 }}"></span><b>{{ new.favor_set|length }}</b><i style="display:none">{{ new.id }}</i></a>
+
+                                <!--评论-->
+                                <a href="javascript:;" class="discus-a" id="discus-a-{{ new.id }}" lang="{{ new.id }}"
+                                    ><span
+                                    class="hand-icon icon-discus"></span><b>0</b><i style="display:none">{{ new.id }}</i></a>
+
+                                <!--收藏-->
+                                <a href="javascript:;" class="collect-a" id="collect-a-{{ new.id }}" lang="{{ new.id }}"
+                                    title="加入私藏" destjid="" jid="wb_{{ new.publishuser.id }}"><span
+                                    class="hand-icon icon-collect"></span><b>私藏</b></a>
+
+                                <!--发布人-->
+                                <a href="/user/wb_{{ new.publishuser.id }}/submitted/1" class="user-a"><span><img
+                                    src="{% static 'chouti/img/bai.png' %}"/></span><b>{{ new.publishuser.username }}</b></a>
+
+                                <!--发布时间-->
+                                <span class="left time-into"><a class="time-a" href="/link/{{ new.id }}" target="_blank"><b>3分钟前</b></a><i>入热榜</i></span>
+                            </div>
+
+
+                            <!--评论区域-->
+                            <div class="comment-box-area" id="comment-box-area-{{ new.id }}">
+                                <div class="pinglun arrow" id="comt-arrow-{{ new.id }}"></div>
+                                <a class="pinglun close-comt" title="关闭" href="javascript:;" lang="{{ new.id }}"></a>
+                                <div class="corner comment-box" id="comment-box-{{ new.id }}">
+                                    <div class="loading-ico-top" id='loading-comment-top-{{ new.id }}'
+                                        style="margin-left:230px;">加载中，请稍候...
+                                    </div>
+                                    <div class="comment-box-top" id="comment-box-top-{{ new.id }}">
+                                    <div class="tip-1">最热评论(<span id="newestCount-{{ new.id }}">3</span>)</div>
+                                    <div class="tip-2"><a href="" target="_blank"><em
+                                            class="pinglun em1"></em><span>去评论页面</span></a></div>
+                                    </div>
+                                    <!-- 评论树形 -->
+                                    <ul class="filetree comment-list-top-2" id="comment-list-top-{{ new.id }}"></ul>
+                                    <div class="huifu-top-box" id="huifu-top-box-{{ new.id }}" style="display: none;">
+                                        <div class="box-l txt-input-area-div-top corner no-corner-bottom">
+                                            <div class="lab-comment-top" id="lab-comment-top-{{ new.id }}" style="display: none">
+                                                "回复 "
+                                                <span id="nick--{{ new.id }}"></span>
+                                                ":"
+                                            </div>
+                                            <textarea lang="{{ new.id }}" maxlength="150" name="txt-huifu-top" id="txt-huifu-top-{{ new.id }}" class="txt-huifu txt-huifu-top" style="text-indent: 0px; height: 40px; resize: vertical; background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 220, 239);"></textarea>
+                                        </div>
+                                        <div class="box-r">
+											<a id="pub-btn-top-{{ new.id }}" lang="{{ new.id }}" href="javascript:;" news="{{ new.id }}" who="0"  class="pub-icons add-pub-btn add-pub-btn-unvalid">评论</a>
+											<a id="pub-loading-top-{{ new.id }}" href="javascript:;" class="loading-ico loading-ico-top pub-loading-top">发布中...</a>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="footer-band" id="footer-band">
+            <!--登陆注册框-->
+            <div class="module-login-mask" style="display: none;" >
+                <div class="module-login-container" >
+
+                    <div class="box-register" >
+                        <!--登录框部分-->
+                        <div class="box-login">
+                            <div class="header box-active" style="border-radius:5px 0 0 0;">登录</div>
+                            <div class="body-login" style="border-radius:0 0 0 5px;">
+                                <div class="tab-box">
+                                    <span class="tab-emaillogin active " style="margin-right: 10px;">邮箱登录</span>|<span class="tab-idlogin" style="margin-left: 10px;" >用户名登录</span>
+                                </div>
+                                <div class="box-emaillogin">
+                                    <div class="err-msg"></div>
+                                    <form class="form-emaillogin" action="#" autocomplete="on">
+                                        <div class="pr">
+                                            <input type="text" name="email" id="email" class="email login-content" placeholder="邮箱" tabindex="1" />
+                                        </div>
+                                        <div class="pr">
+                                            <input type="password" name="empwd" id="empwd" class="empwd login-content" placeholder="密码" tabindex="2" />
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="box-idlogin" style="display:none">
+                                    <div class="err-msg"></div>
+                                    <form class="form-idlogin" action="#" autocomplete="on">
+                                        <div class="pr">
+                                            <input type="text" name="userid" id="userid" class="userid" placeholder="用户名" tabindex="1" />
+                                        </div>
+                                        <div class="pr">
+                                            <input type="password" name="idpwd" id="idpwd" class="idpwd" placeholder="密码" tabindex="2" />
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="box-btn">
+                                    <div style="position: relative;margin-bottom: 20px;">
+                                        <span><input type="checkbox" class="keeplogin" value="1" checked />一个月内自动登录</span>
+                                        <span class="fgtpwd" ><a href="#">忘记密码?</a></span>
+                                    </div>
+                                    <div class="btn btn-login pub-icons pub-btn pub-btn-valid" id="btnLogin">
+                                        <span>登录</span>
+                                        <span style="display: none"><img src="{% static 'chouti/img/loading.gif' %}">正在登录</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--注册框头部分-->
+                        <div class="header" style="border-radius:0 5px 0 0;">
+                            <span>注册</span>
+                            <div style="position:absolute;right:8px;top:8px;width:15px;height:15px;">
+                                <div class="btn-close icons dialog-btn-close"></div>
+                            </div>
+                        </div>
+                        <!--注册框内容部分-->
+                        <div class="body-register" style="border-radius: 0 0 5px 0;">
+
+                            <div class="step-box" >
+                                <span class="step step-1 step-active" onclick="chouti.ShowRegisterEmail();">1 填写邮箱</span>
+                                <span> > </span>
+                                <span class="step step-2 step-active" onclick="chouti.ShowRegisterDetail();">2 填写基本资料</span>
+                            </div>
+
+                            <div class="box-register-email">
+                                <div class="err-msg"></div>
+                                <div class="pr">
+                                    <input type="text" class="rgemail register-content" name="rgemail" placeholder="邮箱" style="width: 116px;margin-right: 6px;" />
+                                    <div class="btn btn-getcode">获取验证码</div>
+                                    <div class="box-voicecode" style="text-align: right;margin-top: 5px;">
+                                        <span>收不到验证码?<a class="btn-getvoicecode" href="#" >收不到就去死吧</a></span>
+                                    </div>
+                                </div>
+                                <div class="pr">
+                                    <input type="text" class="rgcode register-content" name="rgcode" placeholder="验证码" />
+                                </div>
+                                <div class="pr">
+                                    <input type="password" class="rgpwd register-content" name="rgpwd" placeholder="密码" />
+                                </div>
+                                <div>
+                                    <div class="btn btn-register pub-icons pub-btn pub-btn-valid" onclick="chouti.ShowRegisterDetail();">
+                                        <span>下一步</span>
+                                        <span style="display: none;"><img src="{% static 'static/img/loading.gif' %}" >正在注册</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-register-detail" style="display:none;">
+                                <div class="err-msg"></div>
+                                <div class="pr">
+                                    <input type="text" placeholder="昵称" maxlength="10" class="nick register-content" name="rgnick" />
+                                </div>
+                                <div class="pr">
+                                    <input type="radio" class="sex" name="rgsex" value="Female" checked />女
+                                    <input type="radio" class="sex" name="rgsex" value="Male" />男
+                                </div>
+                                <div>
+                                    <select class="rgregion register-content" name="rgregion">
+                                        <option value="0">国内</option>
+                                        <option value="1">海外</option>
+                                    </select>
+                                </div>
+                                <div class="pr">
+                                    <textarea class="sign register-content" name="rgsign" placeholder="签名档" maxlength="100"></textarea>
+                                </div>
+                                <div>
+                                    <div id="btnrg" class="btn btn-accomplish pub-icons pub-btn pub-btn-valid" onclick="chouti.RegisterChouti();">
+                                        <span>注册</span>
+                                        <span style="display: none;"><img src="{% static 'chouti/img/loading.gif' %}">正在提交</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--发布框-->
+            <div class="dialog corner" id="digg-dialog-publish" style="left: 425px; display: none; top: 130px;">
+                <div class="dialog-titlebar">
+                    <div class="dialog-title">
+                        <span id="shareTitle">分享新发现</span>
+                        <input type="hidden" id="hidHtTag" value="" topicid="">
+                    </div>
+                    <div class="dialog-titlebar-close"><a href="javascript:;" title="关闭" class="icons dialog-btn-close" id="dialog-btn-close"></a></div>
+                </div>
+
+                <div class="dialog-content corner-bottom">
+                    <div class="tab-tags nobrder W" id="tabs">
+
+                        <a href="javascript:;" class="tb H w-active color" id="pubTabZixun">链接</a>
+                        <a href="javascript:;" class="tb H" id="pubTabDuanzi">文字</a>
+                        <a href="javascript:;" class="tb H" id="pubTabPic">图片</a>
+                        <div class="tags"></div>
+                    </div>
+                    <div class="dialog-main-content" id="dialog-main-content">
+                        <!-- 资讯区域 -->
+
+                        <div class="publish-content-zixun" id="publish-content-zixun">
+                            <div class="tab-alt">添加链接</div>
+                            <div class="p1">
+                                <div class="txt-input-area float-left corner" style="width:426px;" id="txt-zixun-area">
+                                    <input type="text" name="txt-zixun" id="txt-zixun" class="small-txt-input" style="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); width: 420px; border: 1px solid rgb(204, 220, 239);">
+                                    <label id="lab-zixun" for="txt-zixun" style="display: block;">http://</label>
+                                    <input id="url" name="url" type="hidden" value="">
+                                </div>
+                                <div class="button-container" id="zixun-button-container">
+                                    <a class="pub-icons pub-btn pub-btn-unvalid" href="javascript:;" id="add-pub-btn0">获取标题</a>
+                                    <a class="loading martop10" href="javascript:;" id="add-pub-loading0" style="display: none;"></a>
+                                </div>
+
+                            </div>
+
+                            <div id="zixun-big-area">
+                                <div class="tab-alt martop8">标题</div>
+                                <div class="small-txt-input-area corner" id="zixun-http-area">
+                                    <input name="txt-zixun-content" id="txt-zixun-content" maxlength="150" class="small-txt-input w496" disabled="disabled" style="background-color: rgb(236, 233, 216);">
+                                </div>
+                                <div class="tab-alt martop8">添加摘要（选填）</div>
+                                <div class="txt-input-area corner" style="padding:6px;">
+                                    <textarea id="txt-zhaiyao" name="txt-zhaiyao" maxlength="120" disabled="disabled" style="background-color: rgb(236, 233, 216);"></textarea>
+                                </div>
+                                <div class="toclass-btn-area">
+                                    <span class="tospan toclass-btn-unvalid">发布到:</span>
+
+
+                                        <a class="pub-icons toclass-btn toclass-btn-valid" href="javascript:;" id="to-btn-zixun" lang="1">1区</a>
+                                        <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-duanzi" lang="2">2区</a>
+                                        <!--
+                                        <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-yaoyan" lang="3">谣言</a>
+                                        -->
+                                        <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-pic" lang="4">4区</a>
+                                        <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-tec" lang="100">100区</a>
+                                        <!--
+                                        <a class="pub-icons toclass-btn unfavor toclass-btn-unfavor-unvalid" href="javascript:;" id="to-btn-unfavor"
+                                        lang="5">公众场合不宜</a>
+                                        -->
+                                        <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-ask" lang="151">151区</a>
+
+
+
+                                </div>
+                                <div class="dialog-buttonpane white bottom-null" id="dialog-buttonpane0">
+                                    <div class="write-error-box" id="write-error-box0">
+                                        <div class="write-error-desc"></div>
+                                    </div>
+                                    <div class="button-container">
+                                        <a class="pub-clear-btn" href="javascript:;" id="clear-btn-link">清空</a>
+                                        <a class="pub-icons new-pub-btn new-pub-btn-unvalid" href="javascript:;" id="pub-btn0">发&nbsp;布</a>
+                                        <a class="loading" href="javascript:;" id="pub-loading0">发布中...</a>
+                                    </div>
+                                    <div class="write-error" style="display: none;">标题已超出<span id="moreLength0">10</span>个字</div>
+                                </div>
+                            </div>
+
+                            <div style="height:30px;clear:both;overflow:hidden"></div>
+                        </div>
+                        <!-- 段子区域 -->
+                        <div class="publish-content-duanzi" id="publish-content-duanzi" style="display: none;">
+                            <div class="txt-input-area corner no-corner-bottom">
+                                <textarea name="txt-duanzi" id="txt-duanzi" style="background-color: rgb(255, 255, 255);"></textarea>
+                                <label id="lab-duanzi" for="txt-duanzi" style="display: block;">发布段子...</label>
+                            </div>
+                            <div class="dialog-buttonpane corner-bottom" id="dialog-buttonpane1">
+
+                                <div class="write-length">还可以输入<span id="showLength1">150</span>字</div>
+                                <div class="write-error" style="display: none;">标题已超出<span id="moreLength1">10</span>个字</div>
+                            </div>
+
+                            <div class="toclass-btn-area">
+                                <span class="tospan">发布到:</span>
+
+                                    <a class="pub-icons toclass-btn toclass-btn-valid" href="javascript:;" id="to-btn-duanzi2" lang="2">2区</a>
+                                    <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-ask2" lang="151">151区</a>
+                                    <!--
+                                    <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-yaoyan2" lang="3">谣言</a>
+                                    -->
+                            </div>
+                            <div class="dialog-buttonpane white bottom-null" id="dialog-buttonpane1">
+                                <div class="write-error-box" id="write-error-box1">
+                                    <div class="write-error-desc"></div>
+                                </div>
+                                <div class="button-container">
+                                    <a class="pub-clear-btn" href="javascript:;" id="clear-btn-wanzi">清空</a>
+                                    <a class="pub-icons new-pub-btn new-pub-btn-unvalid" href="javascript:;" id="pub-btn1">发&nbsp;布</a>
+                                    <a class="loading" href="javascript:;" id="pub-loading1">发布中...</a>
+                                </div>
+
+                            </div>
+                            <div style="height:30px;clear:both;overflow:hidden"></div>
+                        </div>
+
+                        <!-- 图片区域 -->
+                        <div class="publish-content-pic" id="publish-content-pic" style="display: none;">
+                            <div class="tab-alt" id="img-alt-title">添加图片</div>
+
+                            <div class="txt-input-area corner" id="upload-img-area">
+                                <form enctype="multipart/form-data" method="post" target="uploadIframe" action="/uploadpic" id="uploadPicFrm">
+                                    <a class="pub-icons line-block add-pub-btn add-pub-btn-valid" href="javascript:;" id="add-pub-btn2">上传<input type="file" name="imgUrl" id="imgUrl" size="1" hidefocus="true"></a>
+                                    <span class="imgRule">支持jpg、jpeg、gif、png格式，且不超过5MB</span>
+                                    <a class="loading" href="javascript:;" id="add-pub-loading2" style="display: none;">上传中...</a>
+                                    <input type="hidden" id="timeHidden" name="identifie" value="">
+                                </form>
+                            </div>
+
+                            <iframe id="uploadIframe" name="uploadIframe" scrolling="no" height="0px" frameborder="0" style="display:none" src="/blank.html"></iframe>
+                            <div class="txt-input-area corner" id="show-img-area" style="display: none;">
+                                <img id="upload-img" src="">
+                                <a href="javascript:;" class="repeat-upload" id="repeat-upload-btn">重新上传</a>
+                            </div>
+                            <div class="txt-input-area martop10 corner no-corner-bottom">
+                                <textarea name="txt-img" id="txt-img" style="background-color: rgb(255, 255, 255);"></textarea>
+                                <label id="lab-img" for="txt-img" style="display: block;">请输入图片描述...</label>
+                            </div>
+                            <div class="dialog-buttonpane corner-bottom" id="dialog-buttonpane2">
+                                <!--
+                                <div class="pic-yellow"><input type="checkbox" name="boxYellow" id="boxYellow" /><label
+                                for="boxYellow">这张图片很黄很暴力</label></div>
+                                -->
+                                <div class="write-length">还可以输入<span id="showLength2">150</span>字</div>
+                                <div class="write-error" style="display: none;">标题已超出<span id="moreLength2">10</span>个字</div>
+                            </div>
+                            <div class="toclass-btn-area">
+                                <span class="tospan">发布到:</span>
+
+
+                                    <a class="pub-icons toclass-btn toclass-btn-valid" href="javascript:;" id="to-btn-pic2" lang="4">4区</a>
+                                    <!--
+                                    <a class="pub-icons toclass-btn unfavor toclass-btn-unfavor-unvalid" href="javascript:;"
+                                    id="to-btn-unfavor2" lang="5">公众场合不宜</a>
+                                    -->
+                                    <a class="pub-icons toclass-btn toclass-btn-unvalid" href="javascript:;" id="to-btn-ask3" lang="151">151区</a>
+
+
+
+                            </div>
+                            <div class="dialog-buttonpane white bottom-null" id="dialog-buttonpane2">
+                                <div class="write-error-box" id="write-error-box2">
+                                    <div class="write-error-desc"></div>
+                                </div>
+                                <div class="button-container">
+                                    <a class="pub-clear-btn" href="javascript:;" id="clear-btn-pic">清空</a>
+                                    <a class="pub-icons new-pub-btn new-pub-btn-unvalid" href="javascript:;" id="pub-btn2">发&nbsp;布</a>
+                                    <a class="loading" href="javascript:;" id="pub-loading2">发布中...</a>
+                                </div>
+
+                            </div>
+                            <div style="height:30px;clear:both;overflow:hidden"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            chouti.Init();
+        })
+    </script>
+{% endblock %}

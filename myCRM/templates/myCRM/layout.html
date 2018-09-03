@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>My CRM</title>
+    <link rel="stylesheet" href="{% static 'myCRM/bootstrap-4.0.0-dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'myCRM/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'myCRM/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+
+
+    <script src="{% static 'myCRM/js/jquery-3.2.0.min.js' %}"></script>
+    <script src="{% static 'myCRM/js/popper.min.js' %}"></script>
+    <script src="{% static 'myCRM/bootstrap-4.0.0-dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'myCRM/js/Chart.min.js' %}"></script>
+    <script src="{% static 'myCRM/js/feather.min.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

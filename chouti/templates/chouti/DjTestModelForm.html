@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DjTestForm</title>
+</head>
+<body>
+<form action="{% url 'chouti:djmodelformtest' %}" method="post" enctype="multipart/form-data">
+    <table>
+        {{ obj.as_table }}
+    </table>
+    <input type="submit" value="submit" />
+</form>
+</body>
+</html>

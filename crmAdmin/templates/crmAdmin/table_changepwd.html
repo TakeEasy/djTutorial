@@ -1,0 +1,33 @@
+{% extends 'crmAdmin/table_index.html' %}
+{% load static %}
+{% load tags %}
+
+{% block page_content %}
+    <div class="card border-primary w-100">
+        <div class="card-header" >
+            {% render_table_name adminClass %}
+        </div>
+        <div class="card-body">
+            <div style="color:red">{{ errors }}</div>
+            <form method="post">
+                <div class="form-group row">
+                    <label for="" class="col-md-2 col-form-label">New password:</label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" name="password1" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-2 col-form-label">Input again:</label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" name="password2" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Chouti</title>
+    <link rel="stylesheet" href="{% static 'chouti/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'chouti/css/module.css' %}">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+
+
+    <script src="{% static 'chouti/js/jquery-3.2.0.min.js' %}"></script>
+    <script src="{% static 'chouti/js/common.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

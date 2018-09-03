@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from myCRM import views
+
 
 urlpatterns = [
     path('polls/',include('polls.urls')),
     path('admin/', admin.site.urls),
-    path('school/',include('school.urls'))
+    path('school/',include('school.urls')),
+    path('chouti/',include('chouti.urls')),
+    path('mycrm/',include('myCRM.urls')),
+    path('crmadmin/',include('crmAdmin.urls')),
 ]

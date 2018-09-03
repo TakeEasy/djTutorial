@@ -36,10 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls.apps.PollsConfig',
-    'school.apps.SchoolConfig'
+    'school.apps.SchoolConfig',
+    'chouti.apps.ChoutiConfig',
+    'myCRM.apps.MycrmConfig',
+    'crmAdmin.apps.CrmadminConfig'
 ]
-
+from django.middleware.csrf import CsrfViewMiddleware
 MIDDLEWARE = [
+    #'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +51,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'chouti.backend.utils.middleware.mdTest1',
+    #'chouti.backend.utils.middleware.mdTest2'
+    #'django.middleware.cache.FetchFromCacheMiddleware'
 ]
 
 ROOT_URLCONF = 'djTutorial.urls'
@@ -64,6 +71,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'debug':True
         },
     },
 ]
@@ -102,6 +110,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CACHES={
+    'default':{
+        'BACKEND':'django.core.cache.backends.filebased.FileBasedCache',
+        'TIMEOUT':300,
+        'OPTION':{
+            'MAX_ENTRIES':300,
+            'CULL_FREQUENCY':3,
+
+        },
+        'KEY_PREFIX':'',
+        'VERSION':1,
+        #'KEY_FUNCTION':'heheda'
+        'LOCATION':os.path.join(BASE_DIR,'chouti','backend','cache')
+
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -115,7 +140,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'myCRM.UserProfile'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL='/mycrm/account/login/'

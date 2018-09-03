@@ -1,0 +1,64 @@
+{% extends 'myCRM/layout.html' %}
+{% load static %}
+{% load tags %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://v4.bootcss.com/docs/4.0/examples/dashboard/#">My CRM</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">{{ request.user }}</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 50px">
+      <div class="row justify-content-center">
+        <div class="col col-md-11">
+          {% block page_content %}
+              <div class="card border-primary w-100">
+                <div class="card-header" >Table Index</div>
+                <div class="card-body">
+                    {% for app_name,app_tables in enabledAdmin.items %}
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{ app_name }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for table_name,admin in app_tables.items %}
+                                <tr>
+                                    <td><a href="{% url 'crmAdmin:table_display' app_name table_name %}">{% render_table_name admin %}</a></td>
+                                    <td>Add</td>
+                                    <td>Edit</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                </div>
+              </div>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+
+    </script>
+
+    <script>
+
+    </script>
+{% endblock %}

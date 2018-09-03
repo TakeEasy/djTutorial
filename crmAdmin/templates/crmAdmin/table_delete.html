@@ -1,0 +1,22 @@
+{% extends 'crmAdmin/table_index.html' %}
+{% load static %}
+{% load tags %}
+
+{% block page_content %}
+    <div class="card border-primary w-100">
+        <div class="card-header" >
+            {% render_table_name adminClass %}
+        </div>
+        <div class="card-body">
+            {% if errors %}
+                {{ errors }}
+            {% else %}
+            {% get_delete_info dataObj %}
+            <form method="post">
+                <button class="btn btn-danger" type="submit">Yes,I'm sure</button>
+                <a href="{% url 'crmAdmin:table_display' appname tablename %}" class="btn btn-info">No,Take me back</a>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

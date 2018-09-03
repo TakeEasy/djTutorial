@@ -1,0 +1,103 @@
+{% extends 'crmAdmin/table_index.html' %}
+{% load static %}
+{% load tags %}
+
+
+{% block page_content %}
+    <div class="card border-primary w-100">
+        <div class="card-header" >{% render_table_name adminClass %}</div>
+    <div class="card-body">
+{#        {{ dyModelObj }}#}
+        {{ dyModelObj.errors }}
+        <form method="post" onsubmit="return selectAllChosenOption();">
+        {% for field in dyModelObj %}
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">{{ field.label }}</label>
+                {% if field.name in adminClass.list_horizontal %}
+                    <div class="col-md-4">
+                        <div class="card border-primary w-100">
+                            <div class="card-header" style="padding: 0.1rem 1.25rem;" >Available {{ field.label }}</div>
+                            <div class="card-body" style="padding: 0;">
+                                {% get_m2m_objlist adminClass field.name dyModelObj as m2m_objlist %}
+                                <select multiple name="" id="select_{{ field.name }}_from" class="w-100" style="border-radius:5px;">
+                                    {% if field.name in adminClass.readonly_fields and not addTable %}
+                                        {% for obj in m2m_objlist %}
+                                            <option value="{{ obj.id }}" disabled>{{ obj }}</option>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for obj in m2m_objlist %}
+                                            <option ondblclick="moveOption(this,'select_{{ field.name }}_to')" value="{{ obj.id }}">{{ obj }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                        {{ field.help_text }}
+                    </div>
+                    <div class="col-md-1">hehe</div>
+                    <div class="col-md-4">
+                        <div class="card border-success w-100">
+                            <div class="card-header" style="padding: 0.1rem 1.25rem;" >Chosen {{ field.label }}</div>
+                            <div class="card-body" style="padding: 0;">
+                                {% get_m2m_chosenobjlist dyModelObj field.name as m2m_chosenlist %}
+                                <select multiple name="{{ field.name }}" id="select_{{ field.name }}_to" class="w-100 adminCRMChosen" style="border-radius:5px;">
+                                    {% if field.name in adminClass.readonly_fields and not addTable %}
+                                        {% for obj in m2m_chosenlist %}
+                                            <option value="{{ obj.id }}" disabled>{{ obj }}</option>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for obj in m2m_chosenlist %}
+                                            <option ondblclick="moveOption(this,'select_{{ field.name }}_from')" value="{{ obj.id }}">{{ obj }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-md-10">
+                        {{ field }}
+                        {{ field.help_text }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if not adminClass.readonly_table %}
+            <div class="form-group row">
+                <div class="col-md-2">
+                    {% if dyModelObj.instance.id %}
+                        <a href="{% url 'crmAdmin:table_delete' appname tablename dyModelObj.instance.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+                <div class="col-md-10">
+                    <button type="submit" class="btn btn-success pull-right" >Save</button>
+                </div>
+            </div>
+        {% endif %}
+        </form>
+    </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        function moveOption(eleObj,target_id) {
+            var from_id = $(eleObj).parent().attr('id');
+            //console.log(from_id);
+            $(eleObj).attr('ondblclick',"moveOption(this,'"+from_id+"')");
+            //console.log(target_id);
+            $(eleObj).appendTo($('#'+target_id));
+
+        }
+        function selectAllChosenOption() {
+            $("select.adminCRMChosen option").each(function () {
+                //alert($(this));
+                $(this).prop('selected',true);
+            });
+
+            $("form :disabled").each((function () {
+                $(this).prop('disabled',false);
+            }));
+            return true;
+        }
+    </script>
+{% endblock %}

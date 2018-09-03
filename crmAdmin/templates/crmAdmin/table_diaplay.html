@@ -1,0 +1,149 @@
+{% extends 'crmAdmin/table_index.html' %}
+{% load static %}
+{% load tags %}
+
+
+{% block page_content %}
+    <div class="card border-primary w-100">
+        <div class="card-header" >{% render_table_name adminClass %}<span class="pull-right"><a class="fa fa-plus-circle" href="{{ request.path }}/add"></a></span></div>
+        <div class="card-body">
+            <form method="get">
+                <div class="row">
+                    {% for condition in adminClass.list_filter %}
+                        <div class="col-md-2">
+                            <span>{{ condition }}:</span>
+                            {% render_filter_condition condition adminClass condition_filter %}
+                        </div>
+                    {% endfor %}
+                    <div class="col-md-2">
+                        <span>Search:</span>
+                        <input type="search" class="form-control" name="search" value="{{ searchKey }}" placeholder="By:{% for field in adminClass.search_fields %}{{ field }},s{% endfor %}" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success" style="position:absolute;bottom: 0">filter</button>
+                    </div>
+                </div>
+            </form>
+            <form method="post" onsubmit="return goAction(this);">
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-2">
+                        <select id="select_method" name="action" class="form-control">
+                            <option value="">---------</option>
+                            {% for method in adminClass.actions %}
+                                <option value="{{ method }}">{{ method }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-info" type="submit" >Go</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" value="all" onclick="checkAllbox(this);"></th>
+                                {% for column in adminClass.list_display %}
+                                    {% render_table_head column order_by condition_filter searchKey adminClass %}
+{#                                    <th>{{ column }}</th>#}
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for data in querry_set %}
+                                <tr>
+                                    <td><input class="input-dataselect" type="checkbox" value="{{ data.id }}"></td>
+                                    {% build_table_row request data adminClass %}
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td></td>
+                                <td>总共{{ querry_set.paginator.count }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+{#            <div class="pagination">#}
+{#                <span class="step-links">#}
+{#                    {% if querry_set.has_previous %}#}
+{#                        <a href="?page=1">&laquo; first</a>#}
+{#                        <a href="?page={{ querry_set.previous_page_number }}">previous</a>#}
+{#                    {% endif %}#}
+{##}
+{#                    <span class="current">#}
+{#                        Page {{ querry_set.number }} of {{ querry_set.paginator.num_pages }}.#}
+{#                    </span>#}
+{##}
+{#                    {% if querry_set.has_next %}#}
+{#                        <a href="?page={{ querry_set.next_page_number }}">next</a>#}
+{#                        <a href="?page={{ querry_set.paginator.num_pages }}">last &raquo;</a>#}
+{#                    {% endif %}#}
+{#                </span>#}
+{#            </div>#}
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                {% if querry_set.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ querry_set.previous_page_number }}{% render_condition_url condition_filter  %}&o={{ curr_order }}&search={{ searchKey }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                {% endif %}
+
+{#                {% for currentpage in querry_set.paginator.page_range %}#}
+{#                    {% build_page_list currentpage querry_set condition_filter %}#}
+{#                {% endfor %}#}
+
+                {% build_all_page querry_set condition_filter curr_order searchKey %}
+
+                {% if querry_set.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ querry_set.next_page_number }}{% render_condition_url condition_filter %}&o={{ curr_order }}&search={{ searchKey }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                {% endif %}
+              </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function checkAllbox(ele) {
+            if ($(ele).prop('checked')){
+                $('input.input-dataselect').prop('checked',true);
+            }
+            else{
+                $('input.input-dataselect').prop('checked',false);
+            }
+        }
+        function goAction(formObj) {
+            var selected_ids=[];
+            $('input.input-dataselect:checked').each(function () {
+                selected_ids.push($(this).val())
+            });
+            console.log(selected_ids);
+            var selected_method=$('#select_method').val();
+            console.log(selected_method);
+            if(selected_ids.length == 0){
+                alert('You must choose more than one data!');
+                return false;
+            }else if(!selected_method){
+                alert('You must choose one method!');
+                return false;
+            }
+
+            var selected_ids_ele="<input name='selected_ids' type='hidden' value='"+selected_ids.toString()+"'></input>";
+            $(formObj).append(selected_ids_ele);
+            return true;
+        }
+    </script>
+{% endblock %}
