@@ -2,14 +2,21 @@
 {% load static %}
 
 {% block page_content %}
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown
-      </button>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item" type="button">Action</button>
-        <button class="dropdown-item" type="button">Another action</button>
-        <button class="dropdown-item" type="button">Something else here</button>
-      </div>
-    </div>
+    <form method="post">
+        <div style="color:red;">{{ enroll_form.errors }}</div>
+        {% for field in enroll_form %}
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">{{ field.label }}</label>
+                <div class="col-md-6">
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="form-group row">
+            <div class="col-md-8">
+                <span>发送此链接给学员:{{ message.msg }}</span>
+                <button type="submit" class="btn btn-success pull-right">下一步</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}
